@@ -1,0 +1,66 @@
+
+<div class="af-register-form">
+
+  <mat-card class="example-card">
+    <mat-card-header>
+      <div mat-card-avatar class="example-header-image"></div>
+      <mat-card-title>ANGULAR FORMATIONS</mat-card-title>
+      <mat-card-subtitle>REGISTRATION</mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content>
+      <form [formGroup]="signupForm">
+        <mat-form-field class="example-full-width" appearance="fill">
+          <mat-label>Username</mat-label>
+          <input matInput formControlName="username" placeholder="Ex. diallo">
+          <mat-error *ngIf="signupForm.controls['username'].errors">
+            <mat-error *ngIf="signupForm.controls['username'].hasError('required')">
+              <strong>Pseudo invalide</strong>
+            </mat-error>
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width" appearance="fill">
+          <mat-label>Email</mat-label>
+          <input type="email" matInput formControlName="email"
+                 placeholder="Ex. pat@example.com">
+          <mat-error *ngIf="signupForm.controls['email'].errors">
+            <mat-error *ngIf="signupForm.controls['email'].hasError('required')">
+              <strong>Email obligatoire</strong>
+            </mat-error>
+            <mat-error *ngIf="signupForm.controls['email'].hasError('email')">
+              Email invalide
+            </mat-error>
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width" appearance="fill">
+          <mat-label>Password</mat-label>
+          <input matInput formControlName="password" placeholder="Ex. 8ji,;75:76">
+          <mat-error *ngIf="signupForm.controls['password'].errors">
+            <mat-error *ngIf="signupForm.controls['password'].hasError('required')">
+              <strong>Mot de passe obligatoire</strong>
+            </mat-error>
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width" appearance="fill">
+          <mat-label>Password confirmation</mat-label>
+          <input matInput formControlName="password" placeholder="Ex. 8ji,;75:76">
+          <mat-error *ngIf="signupForm.controls['passwordConfirmation'].errors">
+            <mat-error *ngIf="signupForm.controls['passwordConfirmation'].hasError('required')">
+              <strong>Confirmation du mot passe obligatoire</strong>
+            </mat-error>
+          </mat-error>
+        </mat-form-field>
+      </form>
+    </mat-card-content>
+
+    <mat-card-actions>
+      <button mat-raised-button color="primary">REGISTER</button>
+    </mat-card-actions>
+
+  </mat-card>
+
+</div>
+

@@ -34,30 +34,50 @@
           </mat-error>
         </mat-form-field>
 
-        <mat-form-field class="example-full-width" appearance="fill">
+        <mat-form-field class="example-full-width af-password-field" appearance="fill">
           <mat-label>Password</mat-label>
-          <input matInput formControlName="password" placeholder="Ex. 8ji,;75:76">
+          <input matInput type="password" formControlName="password" placeholder="Ex. 8ji,;75:76">
+
           <mat-error *ngIf="signupForm.controls['password'].errors">
-            <mat-error *ngIf="signupForm.controls['password'].hasError('required')">
-              <strong>Mot de passe obligatoire</strong>
+            <mat-error class="af-password-field-label" *ngIf="signupForm.controls['password'].hasError('required')">
+              <mat-label>Le mot de passe est obligatoire</mat-label>
+            </mat-error>
+            <mat-error class="af-password-field-label" *ngIf="signupForm.controls['password'].hasError('hasNumber')">
+              <mat-label>Le mot de passe doit contenir au moins un nombre</mat-label>
+            </mat-error>
+            <mat-error class="af-password-field-label" *ngIf="signupForm.controls['password'].hasError('hasCapitalCase')">
+              <mat-label>Le mot de passe doit contenir au moins une majuscule</mat-label>
+            </mat-error>
+            <mat-error class="af-password-field-label" *ngIf="signupForm.controls['password'].hasError('hasCapitalCase')">
+              <mat-label>Le mot de passe doit contenir au moins une minuscule</mat-label>
+            </mat-error>
+            <mat-error class="af-password-field-label" *ngIf="signupForm.controls['password'].hasError('hasSpecialCharacters')">
+              <mat-label>Le mot de passe doit contenir au moins un caractère spécial</mat-label>
+            </mat-error>
+            <mat-error class="af-password-field-label" *ngIf="signupForm.controls['password'].hasError('minlength')">
+              <mat-label>Le mot de passe doit contenir au moins 8 carcatères</mat-label>
             </mat-error>
           </mat-error>
+
         </mat-form-field>
 
         <mat-form-field class="example-full-width" appearance="fill">
           <mat-label>Password confirmation</mat-label>
-          <input matInput formControlName="password" placeholder="Ex. 8ji,;75:76">
-          <mat-error *ngIf="signupForm.controls['passwordConfirmation'].errors">
-            <mat-error *ngIf="signupForm.controls['passwordConfirmation'].hasError('required')">
-              <strong>Confirmation du mot passe obligatoire</strong>
-            </mat-error>
+          <input matInput type="password" formControlName="passwordConfirmation" placeholder="Ex. nH?75:76">
+
+          <mat-error *ngIf="signupForm.controls['passwordConfirmation'].hasError('required')">
+            <strong>Confirmation du mot passe obligatoire</strong>
+          </mat-error>
+          <mat-error *ngIf="signupForm.controls['passwordConfirmation'].hasError('mustMatch')">
+            <strong>Les mot de passe doivent correspondre</strong>
           </mat-error>
         </mat-form-field>
+
       </form>
     </mat-card-content>
 
     <mat-card-actions>
-      <button mat-raised-button color="primary">REGISTER</button>
+      <button type="submit" [disabled]="!signupForm.valid" mat-raised-button color="primary">REGISTER</button>
     </mat-card-actions>
 
   </mat-card>

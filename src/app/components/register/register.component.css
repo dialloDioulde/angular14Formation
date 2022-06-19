@@ -22,3 +22,24 @@
 .example-card {
   max-width: 400px;
 }
+
+.af-password-field {
+  margin-bottom: 112px;
+}
+
+
+.af-error-label {
+  margin-bottom: 4px;
+}
+
+.af-password-field-label {
+  margin-bottom: 4px;
+}
+
+.af-error-label-success {
+  color: green;
+}
+
+.af-error-label-danger {
+  color : red;
+}

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Router} from "@angular/router";
 import {CustomValidators} from "../../utils/custom-validators";
+import {AuthService} from "../../shared/auth.service";
 
 
 @Component({
@@ -13,13 +14,13 @@ export class RegisterComponent implements OnInit {
   signupForm !: FormGroup;
   constructor(
     public fb: FormBuilder,
-    //public authService: AuthService,
+    public authService: AuthService,
     public router: Router
   ) {}
 
   ngOnInit(): void {
     this.signupForm = this.fb.group({
-      username: ['', [Validators.required,]],
+      name: ['', [Validators.required,]],
       email: ['', [Validators.required, Validators.email]],
       password: ['',
         [
@@ -42,6 +43,15 @@ export class RegisterComponent implements OnInit {
         })
   }
 
-  registerUser() {}
+  registerUser() {
+    console.log(this.signupForm.value)
+    this.authService.registerUser(this.signupForm.value).subscribe((res) => {
+      if (res.result) {
+        this.signupForm.reset();
+        this.router.navigate(['login']);
+      }
+    });
+
+  }
 
 }

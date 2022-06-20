@@ -20,11 +20,17 @@ import {MatInputModule} from "@angular/material/input";
 import {MatCardModule} from "@angular/material/card";
 import {MatIconModule} from "@angular/material/icon";
 
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
+import { AuthInterceptor } from './shared/authconfig.interceptor';
+import { UserProfileComponent } from './components/user-profile/user-profile.component';
+import {AuthGuard} from "./shared/auth.guard";
+
 const routes: Routes = [
   { path: '', component: HomeComponent },
   //{ path: '**', component: HomeComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'login', component: LoginComponent },
+  { path: 'user-profile/:id', component: UserProfileComponent, canActivate: [AuthGuard],},
 ];
 
 @NgModule({
@@ -33,6 +39,7 @@ const routes: Routes = [
     HomeComponent,
     RegisterComponent,
     LoginComponent,
+    UserProfileComponent,
   ],
   imports: [
     BrowserModule,
@@ -47,9 +54,16 @@ const routes: Routes = [
     MatInputModule,
     MatCardModule,
     MatIconModule,
+    HttpClientModule
   ],
   exports: [RouterModule],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

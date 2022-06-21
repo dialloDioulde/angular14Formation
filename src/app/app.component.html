@@ -1,8 +1,10 @@
 
 <mat-toolbar color="primary">
   <button mat-button routerLink="/">Home</button>
-  <button mat-button routerLink="/register">Register</button>
-  <button mat-button routerLink="/login">Login</button>
+  <button *ngIf="!this.authService.isLoggedIn" mat-button routerLink="/register">Register</button>
+  <button *ngIf="!this.authService.isLoggedIn" mat-button routerLink="/login">Login</button>
+  <button *ngIf="this.authService.isLoggedIn" (click)="goToMyProfile()" mat-button>Profile</button>
+  <button *ngIf="this.authService.isLoggedIn" (click)="logoutUser()" mat-button>Logout</button>
 </mat-toolbar>
 
 <div class="af-global-div">

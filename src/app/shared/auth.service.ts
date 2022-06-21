@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { User } from '../model/user';
+import { User } from '../models/user';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import {
@@ -41,8 +41,8 @@ export class AuthService {
     return authToken !== null;
   }
   logoutUser() {
-    let removeToken = localStorage.removeItem('access_token');
-    if (removeToken === null) {
+    localStorage.removeItem('access_token');
+    if (this.getToken() === null) {
       this.router.navigate(['login']);
     }
   }

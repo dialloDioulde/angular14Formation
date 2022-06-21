@@ -24,12 +24,13 @@ import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import { AuthInterceptor } from './shared/authconfig.interceptor';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import {AuthGuard} from "./shared/auth.guard";
+import {RegisterLoginGuard} from "./shared/register-login.guard";
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
   //{ path: '**', component: HomeComponent },
-  { path: 'register', component: RegisterComponent },
-  { path: 'login', component: LoginComponent },
+  { path: 'register', component: RegisterComponent, canActivate: [RegisterLoginGuard], },
+  { path: 'login', component: LoginComponent, canActivate: [RegisterLoginGuard], },
   { path: 'user-profile/:id', component: UserProfileComponent, canActivate: [AuthGuard],},
 ];
 

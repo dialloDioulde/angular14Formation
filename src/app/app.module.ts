@@ -25,13 +25,17 @@ import { AuthInterceptor } from './shared/authconfig.interceptor';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import {AuthGuard} from "./shared/auth.guard";
 import {RegisterLoginGuard} from "./shared/register-login.guard";
+import {UserRoleGuard} from "./shared/user-role.guard";
+import {Role} from "./models/role";
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
   //{ path: '**', component: HomeComponent },
   { path: 'register', component: RegisterComponent, canActivate: [RegisterLoginGuard], },
   { path: 'login', component: LoginComponent, canActivate: [RegisterLoginGuard], },
-  { path: 'user-profile/:id', component: UserProfileComponent, canActivate: [AuthGuard],},
+  //{ path: 'user-profile/:id', component: UserProfileComponent, canActivate: [AuthGuard],},
+  { path: 'user-profile/:id', component: UserProfileComponent, canActivate: [UserRoleGuard], data: { roles: [Role.User] },},
+
 ];
 
 @NgModule({

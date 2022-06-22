@@ -5,6 +5,8 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 // @ts-ignore
 import jwt_decode from "jwt-decode";
 import {Router} from "@angular/router";
+import {User} from "./models/user";
+import {Role} from "./models/role";
 
 @Component({
   selector: 'app-root',
@@ -14,15 +16,21 @@ import {Router} from "@angular/router";
 export class AppComponent {
   title = 'angularFormation';
 
-  constructor(private http: HttpClient, public authService: AuthService, public router: Router) { }
+  user = <any> User;
+  constructor(private http: HttpClient, public authService: AuthService, public router: Router) {
+    // @ts-ignore
+    this.authService.user.subscribe(x => this.user = x);
+  }
 
   goToMyProfile(){
-    // @ts-ignore
-    let authToken = localStorage.getItem('access_token');
-    // @ts-ignore
-    let decoded = jwt_decode(authToken);
-    // @ts-ignore
-    this.router.navigate(['user-profile/' + decoded.userId]);
+    this.router.navigate(['user-profile/' + this.user._id]);
+  }
+
+  get isAdmin() {
+    return this.user && this.user.role === Role.Admin;
+  }
+  get isUser() {
+    return this.user && this.user.role === Role.User;
   }
 
   logoutUser() {

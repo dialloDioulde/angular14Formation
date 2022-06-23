@@ -27,14 +27,18 @@ import {AuthGuard} from "./shared/auth.guard";
 import {RegisterLoginGuard} from "./shared/register-login.guard";
 import {UserRoleGuard} from "./shared/user-role.guard";
 import {Role} from "./models/role";
+import { PostComponent } from './components/post/post.component';
+import { DialogComponent } from './components/dialog/dialog.component';
+import {MatDialogModule} from "@angular/material/dialog";
+import {MatSelectModule} from "@angular/material/select";
+import {MatTableModule} from "@angular/material/table";
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
-  //{ path: '**', component: HomeComponent },
   { path: 'register', component: RegisterComponent, canActivate: [RegisterLoginGuard], },
   { path: 'login', component: LoginComponent, canActivate: [RegisterLoginGuard], },
-  //{ path: 'user-profile/:id', component: UserProfileComponent, canActivate: [AuthGuard],},
   { path: 'user-profile/:id', component: UserProfileComponent, canActivate: [UserRoleGuard], data: { roles: [Role.User] },},
+  { path: 'posts', component: PostComponent, canActivate: [AuthGuard]},
 
 ];
 
@@ -45,6 +49,8 @@ const routes: Routes = [
     RegisterComponent,
     LoginComponent,
     UserProfileComponent,
+    PostComponent,
+    DialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -59,7 +65,10 @@ const routes: Routes = [
     MatInputModule,
     MatCardModule,
     MatIconModule,
-    HttpClientModule
+    MatDialogModule,
+    HttpClientModule,
+    MatSelectModule,
+    MatTableModule,
   ],
   exports: [RouterModule],
   providers: [

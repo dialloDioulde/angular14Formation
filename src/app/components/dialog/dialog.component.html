@@ -1,0 +1,28 @@
+<div>
+  <form [formGroup]="postForm">
+    <mat-form-field appearance="outline">
+      <mat-label>Title</mat-label>
+      <input formControlName="title" matInput>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Type</mat-label>
+      <mat-select formControlName="type">
+        <mat-option *ngFor="let postType of postTypeList" [value]="postType">
+          {{postType}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Description</mat-label>
+      <textarea formControlName="description" matInput></textarea>
+    </mat-form-field>
+
+  </form>
+</div>
+
+<div mat-dialog-actions [align]="'end'">
+  <button mat-raised-button color="warn" [mat-dialog-close]="'close'">FERMER</button>
+  <button mat-raised-button color="primary" (click)="addPost()">SAVE</button>
+</div>

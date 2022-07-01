@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import {MatDialog} from "@angular/material/dialog";
+import {Component, Inject, OnInit} from '@angular/core';
+import {MatDialog, MAT_DIALOG_DATA} from "@angular/material/dialog";
 import {HttpClient} from "@angular/common/http";
 import {AuthService} from "../../shared/auth.service";
 import {Router} from "@angular/router";
@@ -23,11 +23,13 @@ export interface tableElement {
 })
 
 export class PostComponent implements OnInit {
-  displayedColumns: string[] = ['title', 'type', 'status', 'description', 'user_id'];
+  displayedColumns: string[] = ['title', 'type', 'status', 'description', 'user_id', 'action'];
   ELEMENT_DATA: tableElement[] = [];
   dataSource = this.ELEMENT_DATA;
 
-  constructor(private http: HttpClient, public authService: AuthService, public postService: PostService, public router: Router, public dialog: MatDialog) { }
+  constructor(private http: HttpClient, public authService: AuthService,
+              public postService: PostService, public router: Router,
+              public dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.getAllPosts();
@@ -36,12 +38,10 @@ export class PostComponent implements OnInit {
   openDialog(): void {
     const dialogRef = this.dialog.open(DialogComponent, {
       width: '600px',
-      //data: {name: this.name, animal: this.animal},
     });
-
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      //this.animal = result;
+      if (result === "create")
+        this.getAllPosts();
     });
   }
 
@@ -52,8 +52,30 @@ export class PostComponent implements OnInit {
         data => {
           this.ELEMENT_DATA = data;
           this.dataSource = data;
-          console.log(data);
-          console.log(this.ELEMENT_DATA);
+        },
+        error => {
+          console.log(error);
+        });
+  }
+
+  //
+  editPost(element: any) {
+    const dialogRef = this.dialog.open(DialogComponent, {
+      width: '600px',
+      data: element,
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === "update")
+        this.getAllPosts();
+    });
+  }
+
+  //
+  deletePost(id: Number) {
+    this.postService.delete(id)
+      .subscribe(
+        data => {
+          this.getAllPosts();
         },
         error => {
           console.log(error);

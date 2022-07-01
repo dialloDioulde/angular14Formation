@@ -27,11 +27,11 @@ export class PostService {
 
 
   update(id: Number, data: any): Observable<any> {
-    return this.http.put(`${this.endpoint}/${id}`, data);
+    return this.http.put(`${this.endpoint}/update-post/${id}`, data);
   }
 
   delete(id: Number): Observable<any> {
-    return this.http.delete(`${this.endpoint}/${id}`);
+    return this.http.delete(`${this.endpoint}/delete-post/${id}`);
   }
 
   /*

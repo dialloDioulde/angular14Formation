@@ -32,6 +32,8 @@ import { DialogComponent } from './components/dialog/dialog.component';
 import {MatDialogModule} from "@angular/material/dialog";
 import {MatSelectModule} from "@angular/material/select";
 import {MatTableModule} from "@angular/material/table";
+import {MatPaginatorModule} from "@angular/material/paginator";
+import {MatSortModule} from "@angular/material/sort";
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -52,24 +54,26 @@ const routes: Routes = [
     PostComponent,
     DialogComponent,
   ],
-  imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
-    MatSliderModule,
-    MatToolbarModule,
-    MatButtonModule,
-    [RouterModule.forRoot(routes)],
-    ReactiveFormsModule,
-    FormsModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatCardModule,
-    MatIconModule,
-    MatDialogModule,
-    HttpClientModule,
-    MatSelectModule,
-    MatTableModule,
-  ],
+    imports: [
+        BrowserModule,
+        BrowserAnimationsModule,
+        MatSliderModule,
+        MatToolbarModule,
+        MatButtonModule,
+        [RouterModule.forRoot(routes)],
+        ReactiveFormsModule,
+        FormsModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatCardModule,
+        MatIconModule,
+        MatDialogModule,
+        HttpClientModule,
+        MatSelectModule,
+        MatTableModule,
+        MatPaginatorModule,
+        MatSortModule,
+    ],
   exports: [RouterModule],
   providers: [
     {

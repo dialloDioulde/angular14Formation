@@ -1,3 +1,18 @@
 table {
   width: 100%;
 }
+
+.af-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.af-button-add {
+  margin-bottom: 4px;
+}
+
+
+.example-full-width {
+  font-size: 15px;
+  width: 100%;
+}

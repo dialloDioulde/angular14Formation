@@ -1,10 +1,13 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import {Component, Inject, OnInit, ViewChild} from '@angular/core';
 import {MatDialog, MAT_DIALOG_DATA} from "@angular/material/dialog";
 import {HttpClient} from "@angular/common/http";
 import {AuthService} from "../../shared/auth.service";
 import {Router} from "@angular/router";
 import {DialogComponent} from "../dialog/dialog.component";
 import {PostService} from "../../shared/post.service";
+import {MatPaginator} from "@angular/material/paginator";
+import {MatTableDataSource} from "@angular/material/table";
+import {MatSort} from "@angular/material/sort";
 
 //
 export interface tableElement {
@@ -24,8 +27,11 @@ export interface tableElement {
 
 export class PostComponent implements OnInit {
   displayedColumns: string[] = ['title', 'type', 'status', 'description', 'user_id', 'action'];
-  ELEMENT_DATA: tableElement[] = [];
-  dataSource = this.ELEMENT_DATA;
+  //ELEMENT_DATA: tableElement[] = [];
+  //dataSource = this.ELEMENT_DATA;
+  dataSource = new MatTableDataSource<any>; //(this.ELEMENT_DATA);
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
 
   constructor(private http: HttpClient, public authService: AuthService,
               public postService: PostService, public router: Router,
@@ -50,12 +56,21 @@ export class PostComponent implements OnInit {
     this.postService.getAll()
       .subscribe(
         data => {
-          this.ELEMENT_DATA = data;
-          this.dataSource = data;
+          //this.ELEMENT_DATA = data;
+          //this.dataSource = data;
+          this.dataSource = new MatTableDataSource(data);
+          this.dataSource.paginator = this.paginator;
+          this.dataSource.sort = this.sort;
         },
         error => {
           console.log(error);
         });
+  }
+
+  //
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
   //

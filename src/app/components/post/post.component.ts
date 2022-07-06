@@ -27,9 +27,7 @@ export interface tableElement {
 
 export class PostComponent implements OnInit {
   displayedColumns: string[] = ['title', 'type', 'status', 'description', 'user_id', 'action'];
-  //ELEMENT_DATA: tableElement[] = [];
-  //dataSource = this.ELEMENT_DATA;
-  dataSource = new MatTableDataSource<any>; //(this.ELEMENT_DATA);
+  dataSource = new MatTableDataSource<any>;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
@@ -56,8 +54,6 @@ export class PostComponent implements OnInit {
     this.postService.getAll()
       .subscribe(
         data => {
-          //this.ELEMENT_DATA = data;
-          //this.dataSource = data;
           this.dataSource = new MatTableDataSource(data);
           this.dataSource.paginator = this.paginator;
           this.dataSource.sort = this.sort;

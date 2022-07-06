@@ -19,6 +19,10 @@
       <textarea formControlName="description" matInput></textarea>
     </mat-form-field>
 
+    <div>
+      <input (change)="getFileSelected($event)" type="file" formControlName="image">
+    </div>
+
   </form>
 </div>
 
